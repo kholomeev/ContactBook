@@ -2,7 +2,6 @@ package com.kholomeev.contactbook
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -20,7 +19,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigationevent.NavigationEventInfo
 import com.kholomeev.contactbook.ui.theme.ContactBookTheme
 import androidx.core.net.toUri
 
@@ -87,7 +85,7 @@ fun sendEmail(context: Context) {
 }
 
 fun officeOnMap(context: Context) {
-    val intent = Intent(Intent.ACTION_VIEW, "geo:60.0237, 30.2289".toUri())
+    val intent = Intent(Intent.ACTION_VIEW, "geo:0,0?q=60.0237, 30.2289(Наш офис)".toUri())
     if (intent.resolveActivity(context.packageManager) != null) {
         context.startActivity(intent)
     }
