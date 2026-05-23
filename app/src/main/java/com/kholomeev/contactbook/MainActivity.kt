@@ -62,11 +62,14 @@ fun ContactBookMainMenu(modifier: Modifier = Modifier) {
 
 fun phoneCall(context: Context) {
     val intent = Intent(Intent.ACTION_DIAL, "tel:+74951234567".toUri())
+    activity(intent, context, "Нет приложения-телефона")
+}
+
+private fun activity(intent: Intent, context: Context, text: String) {
     if (intent.resolveActivity(context.packageManager) != null) {
         context.startActivity(intent)
-    }
-    else {
-        Toast.makeText(context, "Нет приложения-телефона", Toast.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -76,22 +79,12 @@ fun sendEmail(context: Context) {
         putExtra(Intent.EXTRA_EMAIL, "contact@example.com")
         putExtra(Intent.EXTRA_SUBJECT, "Обращение")
     }
-    if (intent.resolveActivity(context.packageManager) != null) {
-        context.startActivity(intent)
-    }
-    else {
-        Toast.makeText(context, "Нет почты", Toast.LENGTH_SHORT).show()
-    }
+    activity(intent, context, "Нет почты")
 }
 
 fun officeOnMap(context: Context) {
     val intent = Intent(Intent.ACTION_VIEW, "geo:0,0?q=60.0237, 30.2289(Наш офис)".toUri())
-    if (intent.resolveActivity(context.packageManager) != null) {
-        context.startActivity(intent)
-    }
-    else {
-        Toast.makeText(context, "Нет карт", Toast.LENGTH_SHORT).show()
-    }
+    activity(intent, context, "Нет карт")
 }
 
 fun shareContact(context: Context) {
@@ -99,8 +92,12 @@ fun shareContact(context: Context) {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, "Контакт: +7 (495) 123-45-67, contact@example.com".toUri())
     }
-    val chooser = Intent.createChooser(intent, "Поделиться через...")
-    context.startActivity(chooser)
+    if (intent.resolveActivity(context.packageManager) != null) {
+        val chooser = Intent.createChooser(intent, "Поделиться через...")
+        context.startActivity(chooser)
+    } else {
+        Toast.makeText(context, "Нет приложений для функции \"Поделиться\"", Toast.LENGTH_SHORT).show()
+    }
 }
 
 @Preview(showBackground = true)
