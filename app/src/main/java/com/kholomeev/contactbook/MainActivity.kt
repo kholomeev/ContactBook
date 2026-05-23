@@ -55,19 +55,22 @@ fun ContactBookMainMenu(modifier: Modifier = Modifier) {
 }
 
 fun phoneCall() {
-
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:+74951234567"))
+    startActivity(intent)
 }
 
 fun sendEmail() {
-
+    val intent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:contact@example.com"))
+    startActivity(intent)
 }
 
 fun officeOnMap() {
-
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:60.0237, 30.2289"))
+    startActivity(intent)
 }
 
 fun shareContact() {
-
+    
 }
 
 @Preview(showBackground = true)
